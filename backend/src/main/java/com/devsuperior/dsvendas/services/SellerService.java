@@ -16,12 +16,15 @@ public class SellerService {
 	
 	@Autowired
 	private SellerRepository sellerRepository;
-
 	
 	public List<SellerDto> findAll(){
 		
+	// stream.map - converte colections de um tipo para outro
+	// lambda => casa item da lista (x) é comvertido de List<Seller> para List<SellerDto>
+		
 		List<Seller> result = sellerRepository.findAll();
-		return result.stream().map(x -> new SellerDto(x)).collect(Collectors.toList()); // stream.map - converte colections de um tipo para outro
-											// lambda => casa item da lista (x) é comvertido de List<Seller> para List<SellerDto>
+		return result.stream().map(x -> new SellerDto(x)).collect(Collectors.toList()); 
 	}
+		
+		
 }

@@ -14,7 +14,6 @@ public class SellerDto implements Serializable {
 		
 	}
 	
-
 	public SellerDto(long id, String name) {
 		this.id = id;
 		this.name = name;
