@@ -1,7 +1,9 @@
 import axios from "axios";
 import Chart from "react-apexcharts";
-import {BASE_URL} from "utils/requests";
-import {SaleSum} from "types/sale";
+import { useState } from "react";
+import { useEffect } from "react";
+import { BASE_URL } from "utils/requests";
+import { SaleSum } from "types/sale";
 
 type ChatData = {
     labels : string[]
@@ -10,21 +12,21 @@ type ChatData = {
 
 function DonutChart() {
 
-    // FORMA ERRADA
-    let chatData : ChatData = { labels: [], series: []};
+    const [chatData, setChartData] = useState<ChatData>({ labels: [], series: []}); 
 
-    // FORMA ERRADA
-    axios.get(`${BASE_URL}/sales/amount-by-seller`)
+    useEffect(()=> {
+        axios.get(`${BASE_URL}/sales/amount-by-seller`)
         .then(response=> {
 
             const data = response.data as SaleSum[];
             const myLabels = data.map(x => x.sellerName);
             const mySeries = data.map(x => x.sum);
 
-            let chatData : ChatData = { labels: myLabels, series: mySeries};
-
-            console.log(chatData);
+            setChartData({ labels: myLabels, series: mySeries});
         })
+    } , []);
+
+
 
   /*  const mockData = {
         series: [477138, 499928, 444867, 220426, 473088],
